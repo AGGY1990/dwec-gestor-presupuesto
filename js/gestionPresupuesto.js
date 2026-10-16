@@ -1,4 +1,8 @@
+//VARIABLES GLOBALES
 let presupuesto = 0;
+let gastos = [];
+let idGasto = 0;
+
 
 function actualizarPresupuesto(nuevoPresupuesto){
     if(typeof nuevoPresupuesto === "number" && nuevoPresupuesto >= 0){
@@ -17,7 +21,10 @@ function mostrarPresupuesto(){
 }
 
 
-function CrearGasto(descripcion, valor){
+
+
+function CrearGasto(descripcion, valor, fecha, ...etiquetas){
+    //***valor***//
     if(typeof valor === "number" && valor >= 0){
         this.valor = valor;       
     }
@@ -26,21 +33,100 @@ function CrearGasto(descripcion, valor){
         this.valor = 0;
     }     
 
-    this.descripcion = descripcion;
 
+    //***Descripción***//
+    this.descripcion = descripcion;  
+   
+
+    //***Fecha***
+    if(typeof fecha === "string" && !Number.isNaN(Date.parse(fecha))){       
+        this.fecha = Date.parse(fecha);        
+    }
+
+    else{
+        this.fecha = Date.now();
+    }
+
+    
+    //***Etiquetas***//
+    this.etiquetas = [];
+
+
+    //***Métodos***/
     this.mostrarGasto = function (){
         return `Gasto correspondiente a ${this.descripcion} con valor ${this.valor} €`;
     }
 
-    this.actualizarDescripcion = function (descripcion){
-        this.descripcion = descripcion;            
+    this.actualizarDescripcion = function (nuevaDescripcion){
+        this.descripcion = nuevaDescripcion;            
     }
 
-    this.actualizarValor = function (valor){
-        if(typeof valor === "number" && valor >= 0){
-            this.valor = valor;            
+    this.actualizarValor = function (nuevoValor){
+        if(typeof nuevoValor === "number" && valor >= 0){
+            this.valor = nuevoValor;            
         }          
     }
+
+    this.mostrarGastoCompleto = function(){        
+        let resultado = `Gasto correspondiente a ${this.descripcion} con valor ${this.valor} €.
+        Fecha: ${new Date(this.fecha).toLocaleString()}
+        Etiquetas:`
+
+        for(let etiqueta of this.etiquetas){
+            resultado += `\n - ${etis}\n`
+        }
+
+        return resultado;       
+    }
+
+    this.actualizarFecha = function (nuevaFecha){
+        if(typeof nuevaFecha === "string" && !Number.isNaN(Date.parse(nuevaFecha))){
+            this.fecha = Date.parse(nuevaFecha);
+        }
+    }
+
+    this.anyadirEtiquetas = function(...nuevasEtiquetas){       
+        for(let etiqueta of nuevasEtiquetas){
+            if(!this.etiquetas.includes(etiqueta)){
+                this.etiquetas.push(etiqueta);
+            }
+        }        
+    }
+
+    this.borrarEtiquetas = function(...etiquetasBorrar){
+        for(let etiqueta of etiquetasBorrar){
+            let posicion = this.etiquetas.indexOf(etiqueta);
+
+            if(posicion !== -1){
+                this.etiquetas.splice(posicion, 1);
+            }
+        }            
+        
+    }
+
+   
+
+}
+
+
+function listarGastos(){
+    return gastos;
+}
+
+function anyadirGasto(nuevoGasto){
+    
+}
+
+function borrarGasto(id){
+   
+}
+
+function calcularTotalGastos(){
+   
+}
+
+function calcularBalance(){
+    
 }
 
 
@@ -51,5 +137,10 @@ function CrearGasto(descripcion, valor){
 export   {
     mostrarPresupuesto,
     actualizarPresupuesto,
-    CrearGasto
+    CrearGasto,
+    listarGastos,
+    anyadirGasto,
+    borrarGasto,
+    calcularTotalGastos,
+    calcularBalance
 }
