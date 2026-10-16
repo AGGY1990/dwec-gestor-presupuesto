@@ -1,13 +1,13 @@
 let presupuesto = 0;
 
 function actualizarPresupuesto(nuevoPresupuesto){
-    if(nuevoPresupuesto >= 0){
+    if(typeof nuevoPresupuesto === "number" && nuevoPresupuesto >= 0){
         presupuesto = nuevoPresupuesto;
         return presupuesto;
     }
 
     else{
-        alert(`Error. El presupuesto no puede ser menor que 0.`)
+        console.log(`Error. El presupuesto debe ser un número no negativo.`);
         return -1;
     }
 }
