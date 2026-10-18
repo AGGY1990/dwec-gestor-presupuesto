@@ -141,7 +141,15 @@ function anyadirGasto(nuevoGasto){
 }
 
 function borrarGasto(id){    
+    for(let gasto of gastos){
 
+        if(gasto.id === id){
+
+            let posicion = gastos.indexOf(gasto);        
+            gastos.splice(posicion, 1);        
+            break;
+        }
+   }
 }
 
 function calcularTotalGastos(){
