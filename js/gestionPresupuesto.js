@@ -125,6 +125,26 @@ ${textoEtiquetas}`;
         }
     }        
 
+    function obtenerPeriodoAgrupacion(periodo){
+        let fecha = new Date(this.fecha);
+        let resultado;
+
+        let anyo = fecha.getFullYear().toString();
+        let mes = (fecha.getMonth() + 1).toString().padStart(2, "0");
+        let dia = fecha.getDate().toString().padStart(2, "0");
+
+        if(periodo === "mes")
+            resultado = `${anyo}-${mes}`;
+
+        else if(periodo === "anyo")
+            resultado = `${anyo}`;
+
+        else if(periodo === "dia")
+            resultado = `${anyo}-${mes}-${dia}`;
+
+        return resultado;
+    }
+
     this.anyadirEtiquetas(...etiquetas);
 }
   
@@ -167,6 +187,14 @@ function calcularBalance(){
    return presupuesto - calcularTotalGastos();
 }
 
+function filtrarGastos(filtros){
+    
+}
+
+function agruparGastos(){
+
+}
+
 
 
 // NO MODIFICAR A PARTIR DE AQUÍ: exportación de funciones y objetos creados para poder ejecutar los tests.
@@ -180,5 +208,7 @@ export   {
     anyadirGasto,
     borrarGasto,
     calcularTotalGastos,
-    calcularBalance
+    calcularBalance,
+    filtrarGastos,
+    agruparGastos    
 }
