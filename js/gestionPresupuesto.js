@@ -188,7 +188,50 @@ function calcularBalance(){
 }
 
 function filtrarGastos(filtros){
-    
+    return gastos.filter(gasto => {        
+
+        if(filtros.fechaDesde !== undefined && Date.parse(filtros.fechaDesde) > gasto.fecha)
+            return false;
+
+        if(filtros.fechaHasta !== undefined && Date.parse(filtros.fechaHasta) < gasto.fecha)
+            return false;
+
+        if(filtros.valorMinimo !== undefined && filtros.valorMinimo > gasto.valor)
+            return false;
+
+        if(filtros.valorMaximo !== undefined && filtros.valorMaximo < gasto.valor)
+            return false;
+
+        if(filtros.descripcionContiene !== undefined && !gasto.descripcion.toLowerCase().includes(filtros.descripcionContiene.toLowerCase()))
+            return false;
+
+        if(filtros.etiquetasTiene != undefined){
+            let filtroEtiquetasMinusculas = filtros.etiquetasTiene.map(function(etiqueta){
+                return etiqueta.toLowerCase();
+            });
+
+            let etiquetasMinusculas = gasto.etiquetas.map(function(etiqueta){
+                return etiqueta.toLowerCase();
+            });
+
+            let encontrado = false;
+
+            for(let filtroEtiqueta of filtroEtiquetasMinusculas){
+
+                for(let etiqueta of etiquetasMinusculas){
+                    
+                    if(etiqueta === filtroEtiqueta)
+                    encontrado = true;      
+                }                            
+            }
+            
+
+            if(!encontrado)
+                return false;
+        }                              
+
+        return true;
+    });
 }
 
 function agruparGastos(){
