@@ -125,7 +125,7 @@ ${textoEtiquetas}`;
         }
     }        
 
-    function obtenerPeriodoAgrupacion(periodo){
+    this.obtenerPeriodoAgrupacion = function(periodo){
         let fecha = new Date(this.fecha);
         let resultado;
 
@@ -234,7 +234,44 @@ function filtrarGastos(filtros){
     });
 }
 
-function agruparGastos(){
+function agruparGastos(periodo="mes", etiquetas, fechaDesde, fechaHasta){
+    
+    let filtro = {
+        fechaDesde: fechaDesde,
+        fechaHasta: fechaHasta,       
+    }      
+
+    if(etiquetas !== undefined && etiquetas.length > 0)
+        filtro.etiquetasTiene = etiquetas;  
+        
+    if(fechaHasta !== undefined && typeof fechaHasta === "string" && !Number.isNaN(Date.parse(fechaHasta)))
+        filtro.fechaHasta = fechaHasta;
+
+    else{
+        fechaHasta = new Date();       
+
+        let anyo = fechaHasta.getFullYear().toString();
+        let mes = (fechaHasta.getMonth() + 1).toString().padStart(2, "0");
+        let dia = fechaHasta.getDate().toString().padStart(2, "0");
+
+        let fechaActual = `${anyo}-${mes}-${dia}`;
+        filtro.fechaHasta = fechaActual;
+    }      
+    
+    let gastosFiltrados = filtrarGastos(filtro); 
+
+
+    let resultado = gastosFiltrados.reduce(function(acc, gasto){      
+
+        let periodoAgrupacion = gasto.obtenerPeriodoAgrupacion(periodo);               
+        
+        acc[periodoAgrupacion] = (acc[periodoAgrupacion] || 0) + gasto.valor;
+ 
+        return acc
+
+    },{});      
+
+    return resultado;
 
 }
 
