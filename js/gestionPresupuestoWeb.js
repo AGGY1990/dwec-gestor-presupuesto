@@ -21,7 +21,7 @@ function mostrarGastoWeb(idElemento, gasto){
 
     let gastoFecha = document.createElement("div");
     gastoFecha.classList.add("gasto-fecha");
-    gastoFecha.textContent = `${gasto.fecha}`;
+    gastoFecha.textContent = `${new Date(gasto.fecha).toLocaleDateString()}`;
 
     let gastoValor = document.createElement("div");
     gastoValor.classList.add("gasto-valor");
@@ -76,7 +76,7 @@ function mostrarGastosAgrupadosWeb(idElemento, agrup, periodo){
         
         let agrupacionDatoClave = document.createElement("span");
         agrupacionDatoClave.classList.add("agrupacion-dato-clave");
-        agrupacionDatoClave.textContent = `${key}`;
+        agrupacionDatoClave.textContent = `${key} : `;
 
         let agrupacionDatoValor = document.createElement("span");
         agrupacionDatoValor.classList.add("agrupacion-dato-valor");
