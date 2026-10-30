@@ -1,5 +1,3 @@
-import { createElement } from "react";
-
 
 function mostrarDatoEnId(idElemento, valor){
 
@@ -93,28 +91,11 @@ function mostrarGastosAgrupadosWeb(idElemento, agrup, periodo){
 
 }
 
-
-
-<div class="agrupacion">
-  <!-- PERIODO será "mes", "día" o "año" en función de si el parámetro
-       de la función es "mes", "dia" o "anyo" respectivamente -->
-  <h1>Gastos agrupados por PERIODO</h1>
-
-  <!-- Se deberá crear un div.agrupacion-dato para cada propiedad del objeto agrup:
-       https://es.javascript.info/keys-values-entries#object-keys-values-entries -->
-  <div class="agrupacion-dato">
-    <span class="agrupacion-dato-clave">NOMBRE_PROPIEDAD_OBJETO_AGRUP</span>
-    <span class="agrupacion-dato-valor">VALOR_PROPIEDAD_OBJETO_AGRUP</span>
-  </div>
-
-  <div class="agrupacion-dato">
-    <span class="agrupacion-dato-clave">NOMBRE_PROPIEDAD_OBJETO_AGRUP</span>
-    <span class="agrupacion-dato-valor">VALOR_PROPIEDAD_OBJETO_AGRUP</span>
-  </div>
-
-  <!-- Etcétera -->
-
-</div>
+export{
+    mostrarDatoEnId,
+    mostrarGastoWeb,
+    mostrarGastosAgrupadosWeb
+}
 
 
 
