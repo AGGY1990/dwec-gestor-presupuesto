@@ -1,3 +1,4 @@
+import * as gestion from "./gestionPresupuesto.js";
 
 function mostrarDatoEnId(idElemento, valor){
 
@@ -89,6 +90,10 @@ function mostrarGastosAgrupadosWeb(idElemento, agrup, periodo){
 
     id.append(divPrincipal);
 
+}
+
+function repintar(){
+    
 }
 
 export{
