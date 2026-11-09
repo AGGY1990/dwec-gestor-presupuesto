@@ -175,6 +175,14 @@ function BorrarHandle(){
     }
 }
 
+function BorrarEtiquetasHandle(){
+
+    this.handleEvent = function(){
+        this.gasto.borrarEtiquetas(this.etiqueta);
+        repintar();
+    }
+}
+
 export{
     mostrarDatoEnId,
     mostrarGastoWeb,
