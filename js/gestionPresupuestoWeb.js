@@ -143,6 +143,28 @@ botonAnyadirGasto.addEventListener("click", nuevoGastoWeb);
 
 function EditarHandle(){
     
+        this.handleEvent = function(){
+            let editarDescripcion = prompt("Descripción: ", `${this.gasto.descripcion}`);
+
+            let editarValor = prompt("Valor: ", `${this.gasto.valor}`);
+            editarValor = Number(editarValor);
+
+            let editarFecha = prompt("Fecha: ", `${new Date(this.gasto.fecha).toISOString()}`);
+
+            let editarEtiquetas = prompt("Etiquetas (ejemplo: etiqueta1,etiqueta2,etiqueta3):", `${this.gasto.etiquetas.join(',')}`);      
+            let arrayEtiquetas = editarEtiquetas.split(',');  
+            let nuevoArrayEtiquetas = [];
+            for(let etiqueta of arrayEtiquetas){
+                nuevoArrayEtiquetas.push(etiqueta);
+            }
+            
+            this.gasto.actualizarDescripcion(editarDescripcion);
+            this.gasto.actualizarValor(editarValor);
+            this.gasto.actualizarFecha(editarFecha);
+            this.gasto.anyadirEtiquetas(...nuevoArrayEtiquetas);
+
+            repintar();            
+        }
 }
 
 export{
