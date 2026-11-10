@@ -36,14 +36,43 @@ function mostrarGastoWeb(idElemento, gasto){
         let etiqueta = document.createElement("span");
         etiqueta.classList.add("gasto-etiquetas-etiqueta");
         etiqueta.textContent = `${unaEtiqueta}`;
+        //evento borrar etiqueta
+        let manejadorBorrarEtiquetas = new BorrarEtiquetasHandle();
+        manejadorBorrarEtiquetas.gasto = gasto;
+        manejadorBorrarEtiquetas.etiqueta = unaEtiqueta;
+        etiqueta.addEventListener("click", manejadorBorrarEtiquetas);
+
         contenedorEtiquetas.append(etiqueta);
     }    
+
+    //botón editar
+    let botonEditar = document.createElement("button");
+    botonEditar.classList.add("gasto-editar");
+    botonEditar.setAttribute("type", "button");
+    botonEditar.textContent = "Editar";
+    //evento botón editar
+    let manejadorEditar = new EditarHandle();
+    manejadorEditar.gasto = gasto;
+    botonEditar.addEventListener("click", manejadorEditar);
+
+    //botón borrar
+    let botonBorrar = document.createElement("button");
+    botonBorrar.classList.add("gasto-borrar");
+    botonBorrar.setAttribute("type", "button");
+    botonBorrar.textContent = "Borrar";
+    //evento botón borrar
+    let manejadorBorrar = new BorrarHandle();
+    manejadorBorrar.gasto = gasto;
+    botonBorrar.addEventListener("click", manejadorBorrar);
+
         
     //Añado los elementos al documento HTML        
     divPrincipal.append(gastoDescripcion);
     divPrincipal.append(gastoFecha);
     divPrincipal.append(gastoValor); 
     divPrincipal.append(contenedorEtiquetas);
+    divPrincipal.append(botonEditar);
+    divPrincipal.append(botonBorrar);
     id.append(divPrincipal);    
 
 }   
@@ -71,17 +100,17 @@ function mostrarGastosAgrupadosWeb(idElemento, agrup, periodo){
     divPrincipal.append(encabezadoH1);
 
     let arrayAgrupacion = agrup;
-    for(let [key, value] of Object.entries(arrayAgrupacion)){
+    for(let prop in arrayAgrupacion){
         let agrupacionDato = document.createElement("div");
         agrupacionDato.classList.add("agrupacion-dato");
         
         let agrupacionDatoClave = document.createElement("span");
         agrupacionDatoClave.classList.add("agrupacion-dato-clave");
-        agrupacionDatoClave.textContent = `${key} : `;
+        agrupacionDatoClave.textContent = `${prop} : `;
 
         let agrupacionDatoValor = document.createElement("span");
         agrupacionDatoValor.classList.add("agrupacion-dato-valor");
-        agrupacionDatoValor.textContent = `${value}`;
+        agrupacionDatoValor.textContent = `${arrayAgrupacion[prop]}`;
 
         agrupacionDato.append(agrupacionDatoClave);
         agrupacionDato.append(agrupacionDatoValor);
@@ -132,7 +161,7 @@ function nuevoGastoWeb(){
         nuevoArrayEtiquetas.push(etiqueta);
     }
 
-    let nuevoGasto = gestion.CrearGasto(nuevaDescripcion, nuevoValor, nuevaFecha, ...nuevoArrayEtiquetas);
+    let nuevoGasto = new gestion.CrearGasto(nuevaDescripcion, nuevoValor, nuevaFecha, ...nuevoArrayEtiquetas);
     gestion.anyadirGasto(nuevoGasto);
 
     repintar();     
